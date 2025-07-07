@@ -35,11 +35,10 @@ void setup() {
 }
 
 void loop() {
-    /*const char *msg = "Hello ESP-NOW!";
+    const char s*msg = "Hello ESP-NOW!";
     esp_err_t result = esp_now_send(receiverMac, (uint8_t *)msg, strlen(msg) + 1);
     if (result != ESP_OK) {
         Serial.println("Send failed");
     }
-    delay(5);*/
-    Serial.println(WiFi.macAddress());
+    delay(5);
 }
