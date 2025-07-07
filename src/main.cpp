@@ -1,7 +1,8 @@
 #include <WiFi.h>
 #include <esp_now.h>
 
-uint8_t receiverMac[] = {0x74, 0x4D, 0xBD, 0x8A, 0x07, 0x64};  // Заменить на MAC приёмника
+uint8_t receiverMac[] = {0x74, 0x4D, 0xBD, 0x8A, 0x07, 0x64}; // ESP32 S3
+//uint8_t receiverMac[] = {0x28, 0x37, 0x2F, 0x6A, 0xC0, 0xA4} // ESP32 C3 SuperMini
 
 void onSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
     Serial.print("Send Status: ");
@@ -11,6 +12,7 @@ void onSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 void setup() {
     Serial.begin(115200);
     WiFi.mode(WIFI_STA);
+    Serial.println(WiFi.macAddress());
     WiFi.disconnect();
 
     if (esp_now_init() != ESP_OK) {
@@ -33,10 +35,11 @@ void setup() {
 }
 
 void loop() {
-    const char *msg = "Hello ESP-NOW!";
+    /*const char *msg = "Hello ESP-NOW!";
     esp_err_t result = esp_now_send(receiverMac, (uint8_t *)msg, strlen(msg) + 1);
     if (result != ESP_OK) {
         Serial.println("Send failed");
     }
-    delay(5);
+    delay(5);*/
+    Serial.println(WiFi.macAddress());
 }
