@@ -1,25 +1,5 @@
-#include <Arduino.h>
-
-/*// put function declarations here:
-int myFunction(int, int);
-
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
-}*/
-
 #include <WiFi.h>
 #include <esp_now.h>
-#include <Arduino.h>
 
 uint8_t receiverMac[] = {0x74, 0x4D, 0xBD, 0x8A, 0x07, 0x64};  // Заменить на MAC приёмника
 
