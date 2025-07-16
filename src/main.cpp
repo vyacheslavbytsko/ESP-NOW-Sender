@@ -14,7 +14,7 @@ struct Data {
 };
 
 uint8_t i = 0;
-uint8_t sendBuffer[15];
+uint8_t sendBuffer[29];
 Data currentData;
 Data prevData;
 
@@ -41,11 +41,17 @@ void collectData(void *parameter) {
         currentData.oxygen = generateOxygen();
         currentData.timestamp = millis();
         
-        // Собираем пакет
-        memcpy(&sendBuffer[1], &currentData.timestamp, sizeof(currentData.timestamp));           // 4 байта
-        memcpy(&sendBuffer[5], &currentData.heartbeat, sizeof(currentData.heartbeat));           // 2 байта
-        memcpy(&sendBuffer[7], &currentData.oxygen, sizeof(currentData.oxygen));                 // 4 байта
-        memcpy(&sendBuffer[11], &currentData.temperature, sizeof(currentData.temperature));      // 4 байта
+        // Кладём prevData
+        memcpy(&sendBuffer[1], &prevData.timestamp, sizeof(prevData.timestamp));           // [1-4]
+        memcpy(&sendBuffer[5], &prevData.heartbeat, sizeof(prevData.heartbeat));           // [5-6]
+        memcpy(&sendBuffer[7], &prevData.oxygen,    sizeof(prevData.oxygen));              // [7-10]
+        memcpy(&sendBuffer[11],&prevData.temperature,sizeof(prevData.temperature));        // [11-14]
+
+        // Кладём currentData
+        memcpy(&sendBuffer[15], &currentData.timestamp, sizeof(currentData.timestamp));    // [15-18]
+        memcpy(&sendBuffer[19], &currentData.heartbeat, sizeof(currentData.heartbeat));    // [19-20]
+        memcpy(&sendBuffer[21], &currentData.oxygen,    sizeof(currentData.oxygen));       // [21-24]
+        memcpy(&sendBuffer[25], &currentData.temperature,sizeof(currentData.temperature)); // [25-28]
 
         // Для отладки принтуем информацию
         Serial.printf("Heartbeat: %d | Temp: %.1f | O2: %.2f | Timestamp: %lu\n",
