@@ -21,7 +21,7 @@ void sendData(void *parameter) {
         if (result != ESP_OK) {
             Serial.println("Send failed");
         }
-        delay(100 / portTICK_PERIOD_MS);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
